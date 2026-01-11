@@ -23,6 +23,7 @@ export default function Navbar({ transparent = false }) {
 
 
 const socket = io(SOCKET_URL, {
+  path: "/socket.io",
   withCredentials: true,
 });
 

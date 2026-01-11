@@ -10,8 +10,8 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { API_BASE_URL, SOCKET_URL } from "../../config";
 
-// const socket = io("http://localhost:5000");
 const socket = io(SOCKET_URL, {
+  path: "/socket.io", 
   withCredentials: true,
 });
 

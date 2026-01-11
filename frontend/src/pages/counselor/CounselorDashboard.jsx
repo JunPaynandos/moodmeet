@@ -35,6 +35,7 @@ const STATUS_COLORS = {
 
 export default function CounselorDashboard() {
   const socket = io(SOCKET_URL, {
+    path: "/socket.io",
     withCredentials: true,
   });
 
