@@ -52,6 +52,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { API_BASE_URL, SOCKET_URL } from "../../config.js";
 
 function MeetTheCounselors() {
   const [counselors, setCounselors] = useState([]);

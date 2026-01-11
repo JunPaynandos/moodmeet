@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../partials/Navbar";
 import Breadcrumbs from "../partials/Breadcrumbs";
 import axios from "axios";
+import { API_BASE_URL, SOCKET_URL } from "../../config.js";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";

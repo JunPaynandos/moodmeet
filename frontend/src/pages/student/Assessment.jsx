@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL, SOCKET_URL } from "../../config.js";
 import Navbar from "../partials/Navbar";
 import Breadcrumbs from "../partials/Breadcrumbs";
 import { Activity, FileText, CalendarDays, Loader2 } from "lucide-react";

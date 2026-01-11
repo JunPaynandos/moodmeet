@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../partials/Navbar";
+import { API_BASE_URL, SOCKET_URL } from "../../config.js";
 import Papa from "papaparse";
 import { saveAs } from "file-saver";
 import {
