@@ -27,7 +27,7 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const CLIENT_URL = process.env.CLIENT_URL || "https://moodmeet.vercel.app/";
+const CLIENT_URL = process.env.CLIENT_URL || "https://moodmeet.vercel.app";
 const io = new Server(server, {
   cors: {
     origin: CLIENT_URL, 

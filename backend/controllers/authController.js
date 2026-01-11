@@ -41,7 +41,7 @@ const msalConfig = {
 
 const pca = new ConfidentialClientApplication(msalConfig);
 
-const redirectUri = "http://localhost:5000/auth/microsoft/callback";
+const redirectUri = "https://moodmeet.onrender.com/auth/microsoft/callback";
 
 /**
  * Normal login (students)
@@ -132,14 +132,14 @@ export const microsoftLoginCallback = async (req, res) => {
     });
 
     // Redirect back to frontend
-    const redirectURL = `http://localhost:5173/login-success?token=${jwtToken}&email=${encodeURIComponent(
+    const redirectURL = `https://moodmeet.vercel.app/login-success?token=${jwtToken}&email=${encodeURIComponent(
       email
     )}&role=${user.role}`;
     res.redirect(redirectURL);
   } catch (error) {
     console.error("Microsoft login failed:", error.message);
     console.error(error.response?.data || error);
-    res.redirect("http://localhost:5173/login-failed");
+    res.redirect("https://moodmeet.vercel.app/login-failed");
   }
 };
 
@@ -194,8 +194,8 @@ export const forgotPassword = async (req, res) => {
     user.resetPasswordExpires = Date.now() + 1000 * 60 * 15; // 15 minutes
     await user.save();
 
-    // Use .env or fallback to localhost
-    const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+    // Use .env or fallback
+    const CLIENT_URL = process.env.CLIENT_URL || "https://moodmeet.vercel.app";
     const resetURL = `${CLIENT_URL}/reset-password/${resetToken}`;
 
     // Styled HTML email

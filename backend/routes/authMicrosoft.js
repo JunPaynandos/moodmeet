@@ -9,7 +9,7 @@ const router = express.Router();
 const TENANT_ID = process.env.AZURE_TENANT_ID;
 const CLIENT_ID = process.env.AZURE_CLIENT_ID;
 const CLIENT_SECRET = process.env.AZURE_CLIENT_SECRET;
-const REDIRECT_URI = "http://localhost:5000/auth/callback";
+const REDIRECT_URI = "https://moodmeet.onrender.com/auth/callback";
 
 // 1️⃣ Step 1: Redirect user to Microsoft login
 router.get("/login", (req, res) => {
