@@ -13,7 +13,7 @@ import { createRoot } from "react-dom/client";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { useRef } from "react";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:5000");
+import { SOCKET_URL } from "../config";
 import axios from "axios";
 
 import DatePicker from "react-datepicker";
@@ -34,6 +34,10 @@ const STATUS_COLORS = {
 };
 
 export default function CounselorDashboard() {
+  const socket = io(SOCKET_URL, {
+    withCredentials: true,
+  });
+
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
@@ -134,7 +138,7 @@ const handleSaveManualLink = async (appointmentId) => {
     setLoading(true);
 
     await axios.patch(
-      `http://localhost:5000/api/appointments/${appointmentId}/manual-link`,
+      `${API_BASE_URL}/api/appointments/${appointmentId}/manual-link`,
       { teamsLink: manualLink }
     );
 

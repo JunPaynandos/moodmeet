@@ -72,14 +72,14 @@ export default function AdminDashboard() {
           // counselorRankingsRes,
           monthlyPerformanceRes,
         ] = await Promise.all([
-          axios.get("http://localhost:5000/api/admin/users", { headers }),
-          axios.get("http://localhost:5000/api/admin/appointments", { headers }),
-          axios.get("http://localhost:5000/api/admin/audit-logs", { headers }),
-          axios.get("http://localhost:5000/api/admin/appointment-trends", { headers }),
-          axios.get("http://localhost:5000/api/admin/user-role-breakdown", { headers }),
-          axios.get("http://localhost:5000/api/admin/counselor-stats", { headers }),
-          // axios.get("http://localhost:5000/api/admin/counselor-rankings", { headers }),
-          axios.get("http://localhost:5000/api/admin/monthly-performance", { headers }),
+          axios.get(`${API_BASE_URL}/api/admin/users`, { headers }),
+          axios.get(`${API_BASE_URL}/api/admin/appointments`, { headers }),
+          axios.get(`${API_BASE_URL}/api/admin/audit-logs`, { headers }),
+          axios.get(`${API_BASE_URL}/api/admin/appointment-trends`, { headers }),
+          axios.get(`${API_BASE_URL}/api/admin/user-role-breakdown`, { headers }),
+          axios.get(`${API_BASE_URL}/api/admin/counselor-stats`, { headers }),
+          // axios.get(`${API_BASE_URL}/api/admin/counselor-rankings`, { headers }),
+          axios.get(`${API_BASE_URL}/api/admin/monthly-performance`, { headers }),
         ]);
 
         setUsers(usersRes.data || []);

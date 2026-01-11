@@ -28,7 +28,7 @@ useEffect(() => {
       }
 
       const res = await axios.get(
-        `http://localhost:5000/api/assessments/student/${studentId}`,
+        `${API_BASE_URL}/api/assessments/student/${studentId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

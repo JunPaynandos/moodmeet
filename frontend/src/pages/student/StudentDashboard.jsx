@@ -2,13 +2,18 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../partials/Navbar";
+import Footer from "../partials/Footer";
 import io from "socket.io-client";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import { SOCKET_URL } from "../config";
 
-const socket = io("http://localhost:5000");
+// const socket = io("http://localhost:5000");
+const socket = io(SOCKET_URL, {
+  withCredentials: true,
+});
 
 const statusColors = {
   pending: "bg-yellow-100 border-yellow-500 text-yellow-700",
@@ -140,7 +145,7 @@ export default function StudentDashboard() {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await axios.get("http://localhost:5000/api/auth/me", {
+      const res = await axios.get(`${API_BASE_URL}/api/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(res.data);
@@ -154,7 +159,7 @@ export default function StudentDashboard() {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await axios.get("http://localhost:5000/api/notifications", {
+      const res = await axios.get(`${API_BASE_URL}/api/notifications`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -168,7 +173,7 @@ export default function StudentDashboard() {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.get(
-        "http://localhost:5000/api/appointments/student",
+        `${API_BASE_URL}/api/appointments/student`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -233,7 +238,7 @@ export default function StudentDashboard() {
 
   const fetchAnnouncements = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/announcements");
+    const res = await axios.get(`${API_BASE_URL}/api/announcements`);
     setAnnouncements(res.data);
   } catch (err) {
     console.error("Error fetching announcements:", err);
@@ -242,7 +247,7 @@ export default function StudentDashboard() {
 
 const fetchEvents = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/events");
+    const res = await axios.get(`${API_BASE_URL}/api/events`);
     setEvents(res.data);
   } catch (err) {
     console.error("Error fetching events:", err);
@@ -373,7 +378,13 @@ const fetchEvents = async () => {
               </div>
 
               <div className="bg-gradient-to-b from-white to-green-50 border border-green-100 p-6 rounded-2xl shadow-md hover:shadow-xl transition-all flex flex-col items-center">
-                <div className="text-5xl text-green-600 mb-3">📋</div>
+                <div className="text-5xl text-teal-600 mb-3">
+                   <img
+                    src="/images/work.png"
+                    alt="work"
+                    className="w-12 h-12 md:w-12 md:h-12"
+                  />
+                </div>
                 <h3 className="text-xl font-semibold mb-2 text-emerald-800">
                   View My Appointments
                 </h3>
@@ -389,7 +400,13 @@ const fetchEvents = async () => {
               </div>
 
               <div className="bg-gradient-to-b from-white to-yellow-50 border border-yellow-100 p-6 rounded-2xl shadow-md hover:shadow-xl transition-all flex flex-col items-center">
-                <div className="text-5xl text-yellow-500 mb-3">📚</div>
+                <div className="text-5xl text-teal-600 mb-3">
+                   <img
+                    src="/images/book-stack.png"
+                    alt="book-stack"
+                    className="w-12 h-12 md:w-12 md:h-12"
+                  />
+                </div>
                 <h3 className="text-xl font-semibold mb-2 text-yellow-700">
                   Access Resources
                 </h3>
@@ -798,8 +815,9 @@ const fetchEvents = async () => {
             )}
           </div>
         </div>
-        <hr className="mt-24"></hr>
+        {/* <hr className="mt-24"></hr> */}
       </div>
+      <Footer />
     </div>
   );
 }

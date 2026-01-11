@@ -35,7 +35,7 @@ const CompleteProfile = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/auth/account-completion',
+        `${API_BASE_URL}/api/auth/account-completion`,
         { ...formData, studentId },
         { headers: { Authorization: `Bearer ${tempToken}` } }
       );

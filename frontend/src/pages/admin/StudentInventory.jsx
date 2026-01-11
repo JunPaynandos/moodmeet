@@ -77,13 +77,13 @@ useEffect(() => {
     try {
       const token = localStorage.getItem("token");
       const [studentsRes, assessmentsRes, appointmentsRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/students", {
+        axios.get(`${API_BASE_URL}/api/students`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get("http://localhost:5000/api/assessments", {
+        axios.get(`${API_BASE_URL}/api/assessments`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get("http://localhost:5000/api/appointments", {
+        axios.get(`${API_BASE_URL}/api/appointments`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);

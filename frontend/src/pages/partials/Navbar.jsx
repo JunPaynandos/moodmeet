@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import axios from "axios";
+  import { SOCKET_URL } from "../config";
 
 const typeColors = {
   approved: "bg-green-100 text-green-800",
@@ -17,12 +18,20 @@ export default function Navbar({ transparent = false }) {
   const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const unreadNotifications = notifications.filter((n) => !n.read).length;
+  const notificationRef = useRef(null);
+  const profileRef = useRef(null);
+
+
+const socket = io(SOCKET_URL, {
+  withCredentials: true,
+});
+
 
   // Fetch user data from MongoDB
   useEffect(() => {
     if (!user?._id) return;
 
-    const socket = io("http://localhost:5000");
+    const socket = io(`${API_BASE_URL}`);
 
     socket.on("connect", () => {
       console.log("Connected to socket:", socket.id);
@@ -53,7 +62,7 @@ export default function Navbar({ transparent = false }) {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const res = await axios.get("http://localhost:5000/api/notifications", {
+        const res = await axios.get(`${API_BASE_URL}/api/notifications`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -72,7 +81,7 @@ export default function Navbar({ transparent = false }) {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const res = await axios.get("http://localhost:5000/api/auth/me", {
+        const res = await axios.get(`${API_BASE_URL}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -85,6 +94,30 @@ export default function Navbar({ transparent = false }) {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target)
+      ) {
+        setShowNotificationDropdown(false);
+      }
+
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleMarkAsRead = async (id) => {
     try {
       const token = localStorage.getItem("token");
@@ -92,7 +125,7 @@ export default function Navbar({ transparent = false }) {
 
       // Update notification status in backend
       await axios.put(
-        `http://localhost:5000/api/notifications/${id}/read`,
+        `${API_BASE_URL}/api/notifications/${id}/read`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -115,7 +148,7 @@ export default function Navbar({ transparent = false }) {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      await axios.put("http://localhost:5000/api/notifications/mark-all-read", {}, {
+      await axios.put(`${API_BASE_URL}/api/notifications/mark-all-read`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -218,16 +251,21 @@ export default function Navbar({ transparent = false }) {
         {/* Right side */}
         <div className="flex items-center gap-6">
           {/* Notifications */}
-          <div className="relative">
+          <div className="relative" ref={notificationRef}>
             <button
               className={`w-12 h-12 flex items-center justify-center rounded-full ${
                 transparent
-                  ? "bg-yellow-500 hover:bg-yellow-600"
-                  : "bg-yellow-500 hover:bg-yellow-600"
+                  ? "bg-white hover:bg-gray-200"
+                  : "bg-white hover:bg-gray-200"
               } transition`}
               onClick={toggleNotificationDropdown}
             >
-              <span className="text-2xl">🔔</span>
+              {/* <span className="text-2xl">🔔</span> */}
+              <img
+                src="/images/bell.png"
+                alt="Notifications"
+                className="w-6 h-6"
+              />
               {unreadNotifications > 0 && (
                 <span className="absolute top-0 right-0 bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
                   {unreadNotifications}
@@ -296,7 +334,7 @@ export default function Navbar({ transparent = false }) {
           </div>
 
           {/* Profile */}
-          <div className="relative">
+          <div className="relative" ref={profileRef}>
             <button
               onClick={toggleProfileDropdown}
               className="focus:outline-none w-12 h-12 rounded-full bg-white border-[3px] border-gray-500 overflow-hidden"

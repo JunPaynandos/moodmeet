@@ -28,7 +28,7 @@ export default function CounselorPostPage() {
   // 🔹 Fetch announcements & events
   const fetchAnnouncements = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/announcements");
+      const res = await axios.get(`${API_BASE_URL}/api/announcements`);
       setAnnouncements(res.data);
     } catch (err) {
       console.error("Error fetching announcements:", err);
@@ -37,7 +37,7 @@ export default function CounselorPostPage() {
 
   const fetchEvents = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/events");
+      const res = await axios.get(`${API_BASE_URL}/api/events`);
       setEvents(res.data);
     } catch (err) {
       console.error("Error fetching events:", err);
@@ -59,14 +59,14 @@ export default function CounselorPostPage() {
       setLoading(true);
       if (editMode) {
         await axios.put(
-          `http://localhost:5000/api/announcements/${editingItem._id}`,
+          `${API_BASE_URL}/api/announcements/${editingItem._id}`,
           announcementData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success("Announcement updated successfully!");
       } else {
         await axios.post(
-          "http://localhost:5000/api/announcements",
+          "${API_BASE_URL}/api/announcements",
           announcementData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -95,14 +95,14 @@ export default function CounselorPostPage() {
       setLoading(true);
       if (editMode) {
         await axios.put(
-          `http://localhost:5000/api/events/${editingItem._id}`,
+          `${API_BASE_URL}/api/events/${editingItem._id}`,
           eventData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success("Event updated successfully!");
       } else {
         await axios.post(
-          "http://localhost:5000/api/events",
+          `${API_BASE_URL}/api/events`,
           eventData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -146,8 +146,8 @@ export default function CounselorPostPage() {
     const { type, id } = deleteTarget;
     const url =
       type === "announcement"
-        ? `http://localhost:5000/api/announcements/${id}`
-        : `http://localhost:5000/api/events/${id}`;
+        ? `${API_BASE_URL}/api/announcements/${id}`
+        : `${API_BASE_URL}/api/events/${id}`;
 
     try {
       await axios.delete(url, { headers: { Authorization: `Bearer ${token}` } });

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API = "http://localhost:5000/api/counselors";
+const API = `${API_BASE_URL}/api/counselors`;
 
 export default function ManageCounselors() {
   const [counselors, setCounselors] = useState([]);

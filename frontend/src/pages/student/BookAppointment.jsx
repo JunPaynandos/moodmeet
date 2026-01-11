@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "../../api";
 import Navbar from "../partials/Navbar";
+// import Footer from "../partials/Footer";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../partials/Breadcrumbs";
@@ -394,6 +395,7 @@ const handleSubmit = async (e) => {
           </motion.div>
         </div>
       )}
+      {/* <Footer /> */}
     </div>
   );
 }

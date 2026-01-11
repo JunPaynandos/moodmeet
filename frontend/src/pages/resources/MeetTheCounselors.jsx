@@ -58,7 +58,7 @@ function MeetTheCounselors() {
 
   const fetchCounselors = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/auth/counselors");
+      const response = await axios.get(`${API_BASE_URL}/api/auth/counselors`);
       console.log("Fetched counselors:", response.data);
       setCounselors(response.data.counselors || response.data || []);
     } catch (error) {
