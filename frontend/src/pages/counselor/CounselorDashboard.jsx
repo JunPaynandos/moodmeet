@@ -13,7 +13,7 @@ import { createRoot } from "react-dom/client";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { useRef } from "react";
 import { io } from "socket.io-client";
-import { API_BASE_URL, SOCKET_URL } from "../../config";
+import { API_BASE_URL, SOCKET_URL } from "../../config.js";
 import axios from "axios";
 
 import DatePicker from "react-datepicker";

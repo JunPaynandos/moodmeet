@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import axios from "axios";
-import { API_BASE_URL, SOCKET_URL } from "../../config";
+import { API_BASE_URL, SOCKET_URL } from "../../config.js";
 
 const typeColors = {
   approved: "bg-green-100 text-green-800",

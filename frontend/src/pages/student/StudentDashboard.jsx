@@ -8,7 +8,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import { API_BASE_URL, SOCKET_URL } from "../../config";
+import { API_BASE_URL, SOCKET_URL } from "../../config.js";
 
 const socket = io(SOCKET_URL, {
   path: "/socket.io", 
